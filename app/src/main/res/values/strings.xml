@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Benedikto One</string>
+    <string name="title_people">Feature</string>
+    <string name="title_feature_auth">Auth Module</string>
+    <string name="title_feature_dashboard">Dashboard Module</string>
+    <string name="title_feature_orders">Orders Module</string>
+    <string name="title_feature_clients">Clients Module</string>
+    <string name="title_feature_products">Products Module</string>
+</resources>
