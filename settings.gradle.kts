@@ -21,11 +21,13 @@ dependencyResolutionManagement {
 
 rootProject.name = "Benedikto One"
 include(":app")
-include(":feature-auth")
-include(":feature-dashboard")
-include(":feature-orders")
-include(":feature-clients")
-include(":feature-products")
+include(":feature_auth")
+include(":feature_dashboard")
+include(":feature_orders")
+include(":feature_clients")
+include(":feature_products")
 include(":data")
 include(":core-ui")
 include(":core-navigation")
+include(":core-network")
+include(":core-database")
