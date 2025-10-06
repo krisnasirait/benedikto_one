@@ -38,16 +38,19 @@ android {
     buildFeatures {
         viewBinding = true
     }
-    dynamicFeatures += setOf(
-        ":feature-auth",
-        ":feature-dashboard",
-        ":feature-orders",
-        ":feature-clients",
-        ":feature-products"
-    )
 }
 
 dependencies {
+
+    implementation(project(":feature_auth"))
+    implementation(project(":feature_clients"))
+    implementation(project(":feature_dashboard"))
+    implementation(project(":feature_orders"))
+    implementation(project(":feature_products"))
+
+    implementation(project(":core-navigation"))
+    implementation(project(":core-ui"))
+    implementation(project(":data"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -62,8 +65,8 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
-    implementation(project(":feature-auth"))
-    implementation(project(":data"))
-    implementation(project(":core-ui"))
-    implementation(project(":core-navigation"))
+    //Navigation
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.dynamic.features.fragment)
+    implementation(libs.androidx.navigation.ui.ktx)
 }
