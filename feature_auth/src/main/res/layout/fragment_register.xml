@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/loginFragment"
+    android:id="@+id/registerFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.LoginFragment">
+    tools:context=".ui.RegisterFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glTop"
@@ -18,7 +18,7 @@
         android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to Benedikto One!"
+        android:text="Register here to make your account!"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/glTop"
@@ -29,7 +29,7 @@
         android:id="@+id/tvLoginTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="Register"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,11 +67,11 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Login"
+        android:text="Register"
         app:layout_constraintTop_toBottomOf="@id/tilPassword"
         android:textAllCaps="false"
         android:padding="12dp"/>
@@ -85,15 +85,15 @@
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnLogin"
-        app:layout_constraintBottom_toTopOf="@id/registerTextView"
+        app:layout_constraintTop_toBottomOf="@id/btnRegister"
+        app:layout_constraintBottom_toTopOf="@id/tvLogin"
         android:layout_marginBottom="24dp"/>
 
     <TextView
-        android:id="@+id/registerTextView"
+        android:id="@+id/tvLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You don't have any account? Register"
+        android:text="Already have an account? Login"
         android:layout_gravity="center_horizontal"
         android:textColor="?attr/colorPrimary"
         android:clickable="true"

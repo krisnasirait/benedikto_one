@@ -13,14 +13,24 @@ class AuthRepositoryImpl @Inject constructor(
     private val supabase: SupabaseClient
 ) : AuthRepository {
 
-    override suspend fun signIn(email: String, password: String) {
-        try {
+    override suspend fun signInEmail(email: String, password: String): Result<Unit> {
+        return runCatching {
             supabase.auth.signInWith(Email) {
                 this.email = email
                 this.password = password
             }
-        } catch (e: AuthRestException) {
-            Log.e("Login", "Login failed: ${e.description}")
+        }
+    }
+
+    override suspend fun signUpEmail(
+        email: String,
+        password: String
+    ): Result<Unit> {
+        return runCatching {
+            supabase.auth.signUpWith(Email) {
+                this.password = password
+                this.email = email
+            }
         }
     }
 
