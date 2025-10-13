@@ -10,9 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dev.krisna.core_navigation.AuthNavigation
+import dev.krisna.core_ui.DialogNavigator
+import dev.krisna.core_ui.ErrorDialogFragment
 import dev.krisna.feature_auth.R
 import dev.krisna.feature_auth.databinding.FragmentLoginBinding
 import dev.krisna.feature_auth.viewmodel.LoginUiState
@@ -33,6 +34,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     @Inject
     lateinit var authNavigation: AuthNavigation
 
+    @Inject
+    lateinit var dialogNavigator: DialogNavigator
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,6 +49,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupDialogListener()
         observeSessionStatus()
         observeLoginUiState()
 
@@ -65,8 +70,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     when (state) {
                         is LoginUiState.Error -> {
                             setLoading(false)
-                            Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
-                            viewModel.resetUiState()
+                            // Show the error dialog instead of a Toast
+                            dialogNavigator.showError(
+                                message = state.message ?: "An unknown error occurred"
+                            )
                         }
                         LoginUiState.Idle -> {
                             setLoading(false)
@@ -76,6 +83,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private fun setupDialogListener() {
+        // Listen for when the error dialog is dismissed.
+        // This is the correct place to reset the ViewModel's state.
+        childFragmentManager.setFragmentResultListener(
+            ErrorDialogFragment.DEFAULT_REQUEST_KEY,
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val acknowledged = bundle.getBoolean(ErrorDialogFragment.RESULT_ACKNOWLEDGED)
+            if (acknowledged) {
+                viewModel.resetUiState()
             }
         }
     }
@@ -95,22 +116,26 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
     }
 
-    /**
-     * Menyesuaikan fungsi ini untuk mengontrol CircularProgressIndicator.
-     */
     private fun setLoading(isLoading: Boolean) {
+        // Store the original button text if you need to support multiple languages
+        val originalText = getString(R.string.title_login) // Assuming you have this in strings.xml
+
         if (isLoading) {
-            // Menggunakan .show() untuk menampilkan indikator dengan animasi
             binding.cipLoading.show()
+            // Make the button text blank to show the indicator clearly
+            binding.btnLogin.text = ""
             binding.btnLogin.isEnabled = false
             binding.etEmail.isEnabled = false
             binding.etPassword.isEnabled = false
+            binding.registerTextView.isEnabled = false
         } else {
-            // Menggunakan .hide() untuk menyembunyikan indikator dengan animasi
             binding.cipLoading.hide()
+            // Restore the button text
+            binding.btnLogin.text = originalText
             binding.btnLogin.isEnabled = true
             binding.etEmail.isEnabled = true
             binding.etPassword.isEnabled = true
+            binding.registerTextView.isEnabled = true
         }
     }
 

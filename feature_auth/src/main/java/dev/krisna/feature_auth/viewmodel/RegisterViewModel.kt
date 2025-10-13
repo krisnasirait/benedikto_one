@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.krisna.data.AuthRepository
-import io.github.jan.supabase.auth.exception.AuthRestException
 import io.github.jan.supabase.auth.status.SessionStatus
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +17,8 @@ import kotlinx.coroutines.launch
 sealed interface RegisterUiState {
     object Idle : RegisterUiState
     object Loading : RegisterUiState
+    // ADD THIS NEW STATE
+    object SuccessAwaitingVerification : RegisterUiState
     data class Error(val message: String?) : RegisterUiState
 }
 
@@ -37,17 +38,14 @@ class RegisterViewModel @Inject constructor(
         viewModelScope.launch {
             _registerUiState.value = RegisterUiState.Loading
 
-            // 2. Panggil repository
             authRepository.signUpEmail(email, password)
                 .onSuccess {
-                    _registerUiState.value = RegisterUiState.Idle
+                    // --- FIX IS HERE ---
+                    // Instead of going to Idle, emit the new success state.
+                    _registerUiState.value = RegisterUiState.SuccessAwaitingVerification
                 }
                 .onFailure { exception ->
-                    val errorMessage = if (exception is AuthRestException) {
-                        exception.description ?: "Invalid email or password"
-                    } else {
-                        exception.message ?: "An unknown error occurred"
-                    }
+                    val errorMessage = exception.message ?: "An unknown error occurred"
                     _registerUiState.value = RegisterUiState.Error(errorMessage)
                 }
         }

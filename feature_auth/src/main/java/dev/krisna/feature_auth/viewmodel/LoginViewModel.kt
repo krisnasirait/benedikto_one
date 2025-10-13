@@ -41,11 +41,7 @@ class LoginViewModel @Inject constructor(
                     _loginUiState.value = LoginUiState.Idle
                 }
                 .onFailure { exception ->
-                    val errorMessage = if (exception is AuthRestException) {
-                        exception.description ?: "Invalid email or password"
-                    } else {
-                        exception.message ?: "An unknown error occurred"
-                    }
+                    val errorMessage = exception.message ?: "An unknown error occurred"
                     _loginUiState.value = LoginUiState.Error(errorMessage)
                 }
         }
