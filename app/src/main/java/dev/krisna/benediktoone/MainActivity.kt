@@ -14,8 +14,10 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    @Inject lateinit var navControllerHolder: NavControllerHolder
-    @Inject lateinit var authNavigation: AuthNavigation
+
+    // 1. Inject NavControllerHolder
+    @Inject
+    lateinit var navControllerHolder: NavControllerHolder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +28,10 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         navControllerHolder.navController = navController
+    }
 
-        authNavigation.navigateToLogin()
+    override fun onDestroy() {
+        navControllerHolder.navController = null
+        super.onDestroy()
     }
 }

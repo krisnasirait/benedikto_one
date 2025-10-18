@@ -1,4 +1,4 @@
-package dev.krisna.data
+package dev.krisna.data.auth
 
 import io.github.jan.supabase.auth.status.SessionStatus
 import kotlinx.coroutines.flow.Flow

@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import dev.krisna.core_navigation.AuthNavigation
+import dev.krisna.core_navigation.MainNavigation
 import dev.krisna.core_ui.DialogNavigator
 import dev.krisna.core_ui.ErrorDialogFragment
 import dev.krisna.feature_auth.R
@@ -33,6 +34,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     @Inject
     lateinit var authNavigation: AuthNavigation
+
+    @Inject
+    lateinit var mainNavigation: MainNavigation
 
     @Inject
     lateinit var dialogNavigator: DialogNavigator
@@ -107,9 +111,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 viewModel.sessionState.collect { status ->
                     if (status is SessionStatus.Authenticated && status.source is SessionSource.SignIn) {
                         setLoading(false)
-                        Toast.makeText(requireContext(), "Login Success!", Toast.LENGTH_SHORT).show()
-                        // navigate to home
-                        // findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                        mainNavigation.navigateToDashboard()
                     }
                 }
             }

@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -52,6 +53,8 @@ dependencies {
     implementation(libs.supabase.auth)
     implementation(libs.supabase.storage)
     implementation(libs.supabase.postgrest)
+
+    implementation(libs.kotlinx.serialization.json)
 
     //ktor
     implementation(libs.ktor.client.core)

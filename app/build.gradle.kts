@@ -44,9 +44,9 @@ dependencies {
 
     implementation(project(":feature_auth"))
     implementation(project(":feature_clients"))
-    implementation(project(":feature_dashboard"))
     implementation(project(":feature_orders"))
-    implementation(project(":feature_products"))
+    implementation(project(":feature_products_list"))
+    implementation(project(":feature_dashboard"))
 
     implementation(project(":core-navigation"))
     implementation(project(":core-ui"))

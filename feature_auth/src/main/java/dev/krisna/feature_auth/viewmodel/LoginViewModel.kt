@@ -3,8 +3,7 @@ package dev.krisna.feature_auth.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.krisna.data.AuthRepository
-import io.github.jan.supabase.auth.exception.AuthRestException
+import dev.krisna.data.auth.AuthRepository
 import io.github.jan.supabase.auth.status.SessionStatus
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,7 +34,6 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             _loginUiState.value = LoginUiState.Loading
 
-            // 2. Panggil repository
             authRepository.signInEmail(email, password)
                 .onSuccess {
                     _loginUiState.value = LoginUiState.Idle
