@@ -20,7 +20,7 @@
             <option value="$PROJECT_DIR$/feature_clients" />
             <option value="$PROJECT_DIR$/feature_dashboard" />
             <option value="$PROJECT_DIR$/feature_orders" />
-            <option value="$PROJECT_DIR$/feature_products" />
+            <option value="$PROJECT_DIR$/feature_products_list" />
           </set>
         </option>
       </GradleProjectSettings>
