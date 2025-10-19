@@ -10,7 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import dev.krisna.feature_products.ProductsUiState
+import dev.krisna.feature_products.ui.ProductsUiState
 import dev.krisna.feature_products.R
 import dev.krisna.feature_products.adapter.ProductListAdapter
 import dev.krisna.feature_products.databinding.FragmentProductsBinding

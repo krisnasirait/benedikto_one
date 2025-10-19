@@ -60,7 +60,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.btnLogin.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString()
-            viewModel.login(email, password)
+
+            val shouldRemember = binding.cbRememberMe.isChecked
+
+            viewModel.login(email, password, shouldRemember)
         }
         binding.registerTextView.setOnClickListener {
             authNavigation.navigateToRegister()
