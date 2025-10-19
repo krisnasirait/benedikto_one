@@ -1,4 +1,4 @@
-package dev.krisna.feature_products
+package dev.krisna.feature_products.ui
 
 import dev.krisna.data.model.Product
 

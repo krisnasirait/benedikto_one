@@ -25,8 +25,8 @@ object SupabaseModule {
             supabaseKey = SUPABASE_KEY
         ) {
             install(Auth) {
-                alwaysAutoRefresh = false
-                autoLoadFromStorage = false
+                alwaysAutoRefresh = true
+                autoLoadFromStorage = true
             }
             install(Postgrest)
         }
